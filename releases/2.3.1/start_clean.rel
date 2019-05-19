@@ -1,0 +1,4 @@
+%% coding: utf-8
+%% rel generated at {2019,5,17} {10,3,19}
+{release,{"start_clean",[]},{erts,"9.2"},[{kernel,"5.4.1"},{stdlib,"3.4.3"}]}.
+

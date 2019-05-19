@@ -1,0 +1,12 @@
+[submodule "lib/mimetypes"]
+	path = lib/mimetypes
+	url = git@github.com:erlangpack/mimetypes.git
+[submodule "lib/simple_cache"]
+	path = lib/simple_cache
+	url = git@github.com:nitrogen/simple_cache.git
+[submodule "lib/stacktrace_compat"]
+	path = lib/stacktrace_compat
+	url = git@github.com:g-andrade/stacktrace_compat.git
+[submodule "lib/rekt"]
+	path = lib/rekt
+	url = git@github.com:nitrogen/rekt.git

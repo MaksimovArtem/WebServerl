@@ -1,0 +1,1 @@
+-record(visitor,{name,city, date, time}).
