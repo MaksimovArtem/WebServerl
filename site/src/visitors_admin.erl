@@ -13,28 +13,28 @@ title() ->
 
 body_1() ->
 	[	
-		#h1{ text="Visitors" },
+		#h1{text="Visitors"},
 		#h3{text="Enter appointment"}
 	].
 
 body() ->
 	[
-		#label {text="Date"},
+		#label {text="Date:  "},
 		#datepicker_textbox{
 			id=date1,
 			options=[{dateFormat, "mm/dd/yy"},
 					 {showButtonPanel, true}]},
 
 		#br{},
-			#label{text="Time"},
+			#label{text="Time:  "},
 			time_dropdown(),
 		#br{},
 
-		#label{text="Name"},
+		#label{text="Name: "},
 		#textbox{id=name, next=city},
 		
 		#br{},
-			#label{text="City"},
+			#label{text="City:  "},
 			#textbox{id=city},
 		#br{},
 
