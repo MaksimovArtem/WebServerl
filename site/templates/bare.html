@@ -10,15 +10,32 @@
   <script src='/nitrogen/nitrogen.min.js' type='text/javascript' charset='utf-8'></script>
   <script src='/nitrogen/bert.min.js' type='text/javascript' charset='utf-8'></script>
   <link rel="stylesheet" href="/nitrogen/jquery-ui/jquery.ui.all.css" type="text/css" media="screen" charset="utf-8" />
-  <link rel="stylesheet" href="/nitrogen/nitrogen.css" />
-  <link rel="stylesheet" href="/css/style.css" />
+ 
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/iview.css" />
+  <link rel="stylesheet" href="css/skin 1/style.css" />
+  <script src="js/jquery-1.7.1.min.js"></script>
+  <script type="text/javascript" src="js/raphael-min.js"></script>
+  <script type="text/javascript" src="js/jquery.easing.js"></script>
+  <script src="js/iview.js"></script>
+  <script>
+    $(document).ready(function(){
+      $('#iview').iView({
+        pauseTime: 7000,
+        directionNav: false,
+        controlNav: true,
+        tooltipY: -15
+      });
+    });
+  </script>
 
   <div class="container_12">
     <div class="grid_8">
       <div class="grid">
         <a href="/">
           <img src=/images/cat.17.jpg
-           style="position:absolute;left:-300px;top:10px">
+           style="position:absolute;left:200px;top:10px">
         </a>
       </div>
     </div>
@@ -29,6 +46,37 @@
   <div class="container_12" style="position:absolute;left:200px;top:-30px">
     [[[page:body_1()]]]
   </div>>
+
+  <div class="container_12" style="position:absolute;left:200px;top: 200px">
+     <div id="iview">
+      <div data-iview:image="photos/photo_slide1.jpeg"></div>
+
+      <div data-iview:image="photos/photo_slide2.jpeg"></div>
+
+      <div data-iview:image="photos/photo_slide3.jpeg"></div>
+
+      <div data-iview:image="photos/photo_slide4.jpg"></div>
+
+      <div data-iview:image="photos/photo_slide5.jpg"></div>
+
+      <div data-iview:image="photos/photo_slide6.jpg"></div>
+
+      <div data-iview:image="photos/photo_slide7.jpeg"></div>
+
+      <div data-iview:image="photos/photo_slide8.jpeg"></div>
+
+      <div data-iview:image="photos/photo_slide9.jpg"></div>
+
+      <div data-iview:image="photos/photo_slide10.jpeg"></div>
+
+      <div data-iview:image="photos/photo_slide11.jpg"></div>
+
+      <div data-iview:image="photos/photo_slide12.jpg"></div>
+      
+    </div>
+
+  </div>
+
   <div class="container_12" style="position:relative;top:100px;left:-130px">
     [[[page:body()]]]
   </div>>

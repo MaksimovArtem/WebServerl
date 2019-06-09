@@ -9,6 +9,8 @@ title() -> "Welcome to this WebSite".
 
 
 body() ->
+
+    visitors_db:start(),
     [
         #h1 { text = "Welcome!" },
         #h2 { text = "You've been busted"}

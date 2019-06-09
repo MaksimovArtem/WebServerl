@@ -6,7 +6,7 @@
 
 main() ->
 	#template{
-	file="./site/templates/bare.html"}.
+	file="./site/templates/page_db.html"}.
 
 title() ->
 	"Admin Visitor".
