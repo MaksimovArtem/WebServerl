@@ -2,6 +2,7 @@
 -compile(export_all).
 
 -include_lib ("nitrogen_core/include/wf.hrl").
+-include_lib("nitrogen_core/include/google_chart.hrl").
 -include("visitors.hrl").
 
 main() ->
