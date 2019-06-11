@@ -30,31 +30,51 @@
     });
   </script>
 
-  <div class="container_12">
-    <div class="grid_8">
-      <div class="grid">
+  <div class="container_12" style= " position: relative;
+                                     display: flex;
+                                     align-item: center;
+                                     justify-content: center;
+                                     height: 100%;
+                                     margin-top: 20px;
+                                     margin-bottom: 40px;">
         <a href="/">
-          <img src=/images/cat.17.jpg
-           style="position:relative;left:355px;top:10px">
+          <img src=/images/cat.17.jpg>
         </a>
-      </div>
-    </div>
   </div>
+
   <style>
     body{
       background-image: url(img/bckg.jpg);
     }
   </style>
 
-  <div>
+  <div style="position: relative;
+              display: flex;
+              align-item: center;
+              justify-content: center; 
+              height: 100%">
+
   [[[page:header()]]]
   </div>
 </head>
 
 <body>
 
+<!--   <div class="container_12" style="position: relative;
+                                   display: flex;
+                                   align-item: center;
+                                   justify-content: center;
+                                   ">
+    [[[page:body()]]]
+  </div> -->
 
-  <div class="container_12" style="position:relative;clear=both">
+
+  <div class="container_12" style="position: relative;
+                                   clear: both;
+                                   display: flex;
+                                   align-item: center;
+                                   justify-content: center; 
+                                   height: 100%">
      <div id="iview">
       <div data-iview:image="photos/photo_slide1.jpeg"></div>
 
@@ -84,16 +104,17 @@
 
   </div>
 
-  <!-- <div class="container_12" style="position:relative;top:100px;left:200px;">
-    [[[page:body()]]]
-  </div>
- -->
 <script>
 [[[script]]]
 </script>
 
 
-<footer>
+<footer style="display: flex; 
+               align-item: center;
+               justify-content: center;
+               height: 100%;
+               margin-top: 40px;
+               margin-bottom: 30px">
   [[[page:footer()]]]
 </footer>
 
