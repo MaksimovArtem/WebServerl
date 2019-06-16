@@ -39,7 +39,6 @@ init(_Args) ->
 handle_call({create_account, Username, Password}, _From, Tab) ->
 	PWHash = erlpass:hash(term_to_binary(Password)),
 	Row = #login{username = Username, password = PWHash},
-	io:format("R: ~p\n",[Row]),
 	Reply = 
 	case get_account(Row#login.username,Tab) of
 		{atomic,[]} ->
@@ -48,9 +47,6 @@ handle_call({create_account, Username, Password}, _From, Tab) ->
 			ok;
 		{atomic, _} -> already_inserted
 	end,
-
-	{atomic, Shit} = get_account(Row#login.username,Tab),
-	io:format("S ~p",[Shit]),
 	{reply, Reply, Tab};
 
 handle_call({remove,Key}, _From, Tab) ->

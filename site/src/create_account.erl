@@ -2,18 +2,18 @@
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
-main() -> #template{file="site/templates/ordinary_page.html"}.
+main() -> #template{file = "site/templates/ordinary_page.html"}.
 title() -> "Create an account!".
 
 body() ->
 	[
-	#label{text="Username:	       "},
+	#label{text="Username:"},
 	#textbox{id=username},
 	#br{},
-	#label{text="Password:		   "},
+	#label{text="Password:"},
 	#password{id=password},
 	#br{},
-	#label{text="Confirm Password: "},
+	#label{text="Confirm Password:"},
 	#password{id=password2},
 	#br{},
 	#button{text="Save Account", postback=save}
