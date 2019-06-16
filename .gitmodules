@@ -10,3 +10,10 @@
 [submodule "lib/rekt"]
 	path = lib/rekt
 	url = git@github.com:nitrogen/rekt.git
+[submodule "site/erlpass"]
+	path = site/erlpass
+	url = git://github.com/ferd/erlpass
+	branch = master
+[submodule "site/erlang-bcrypt"]
+	path = site/erlang-bcrypt
+	url = git@github.com:smarkets/erlang-bcrypt

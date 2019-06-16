@@ -10,7 +10,6 @@ title() -> "Welcome to this WebSite".
 
 header() ->
     [
-        #hr{},
             #singlerow{cells=[#listitem{body=[#button{postback=home, text="Home"}],style="display: inline-block;margin-left: 20px;
                                                                                                                 margin-right: 20px"},
                               #listitem{body=[#button{postback=about_me, text="About Me"}],style="display: inline-block;margin-left: 20px;
@@ -20,29 +19,22 @@ header() ->
                               #listitem{body=[#button{postback=portraite, text="Portraite"}],style="display: inline-block;margin-left: 20px;
                                                                                                                           margin-right: 20px;"},
                               #listitem{body=[#button{postback=reportage, text="Reportage"}],style="display: inline-block;margin-left: 20px;
-                                                                                                                          margin-right: 20px;"}]},
-        #hr{}
-        
+                                                                                                                          margin-right: 20px;"}]}
     ].
 
 body() ->
     visitors_db:start(),
-    [
-        #h1 { text = "Welcome!" },
-        #h2 { text = "You've been busted"}
-    ].
+    db_login:start(),
+    [].
 
 footer() ->
     [
-        #hr{},
             #singlerow{cells=[#listitem{body=[#button{postback=vk, text="VKontakte"}],style="display: inline-block;margin-left: 20px;
                                                                                                                 margin-right: 20px"},
                               #listitem{body=[#button{postback=instagram, text="Instagram"}],style="display: inline-block;margin-left: 20px;
                                                                                                                         margin-right: 20px;"},
                               #listitem{body=[#button{postback=facebook, text="Facebook"}],style="display: inline-block;margin-left: 20px;
-                                                                                                                    margin-right: 20px;"}]},
-        #hr{}
-        
+                                                                                                                    margin-right: 20px;"}]}        
     ].
 
 event(home) ->

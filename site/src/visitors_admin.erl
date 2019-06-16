@@ -87,4 +87,5 @@ save_visitor() ->
 	% Time = wf:depickle(wf:q(time)),
 	% Record = #visitor{name=Name, city=City,
 	% 				  date=Date, time=Time},
-	visitors_db:insert(Name,City).
+	visitors_db:insert(Name,City),
+	wf:redirect("/").
