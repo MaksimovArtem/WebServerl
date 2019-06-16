@@ -10,23 +10,23 @@ title() -> "Welcome to this WebSite".
 
 header() ->
     [
-            #singlerow{cells=[#listitem{body=[#button{postback=home, text="Home"}],style="display: inline-block;
+            #singlerow{cells=[#listitem{body=[#link{postback=home, text=" Home ", image="images/home.png"}],style="display: inline-block;
                                                                                           margin-left: 20px;
                                                                                           margin-right: 20px"},
 
-                              #listitem{body=[#button{postback=about_me, text="About Me"}],style="display: inline-block;
+                              #listitem{body=[#link{postback=about_me, text=" About Me ", image="images/aboutme.png"}],style="display: inline-block;
                                                                                                   margin-left: 20px;
                                                                                                   margin-right: 20px;"},
 
-                              #listitem{body=[#button{postback=nature, text="Nature"}],style="display: inline-block;
+                              #listitem{body=[#link{postback=nature, text=" Nature ", image="images/nature.png"}],style="display: inline-block;
                                                                                               margin-left: 20px;
                                                                                               margin-right: 20px;"},
 
-                              #listitem{body=[#button{postback=portraite, text="Portraite"}],style="display: inline-block;
+                              #listitem{body=[#link{postback=portrait, text=" Portrait ", image="images/portrait.png"}],style="display: inline-block;
                                                                                                     margin-left: 20px;
                                                                                                     margin-right: 20px;"},
 
-                              #listitem{body=[#button{postback=reportage, text="Reportage"}],style="display: inline-block;
+                              #listitem{body=[#link{postback=reportage, text=" Reportage ", image="images/reportage.png"}],style="display: inline-block;
                                                                                                     margin-left: 20px;
                                                                                                     margin-right: 20px;"}]}
     ].
@@ -38,17 +38,20 @@ body() ->
 
 footer() ->
     [
-            #singlerow{cells=[#listitem{body=[#button{postback=vk, text="VKontakte"}],style="display: inline-block;
-                                                                                             margin-left: 20px;
-                                                                                             margin-right: 20px"},
+            #singlerow{cells=[#listitem{body=[#link{text="", image="images/vkontakte.png", url="https://vk.com"}],
+                                        style="display: inline-block;
+                                               margin-left: 20px;
+                                               margin-right: 20px"},
 
-                              #listitem{body=[#button{postback=instagram, text="Instagram"}],style="display: inline-block;
-                                                                                                    margin-left: 20px;
-                                                                                                    margin-right: 20px;"},
+                              #listitem{body=[#link{text="", image="images/instagram.png", url="https://www.instagram.com"}],
+                                        style="display: inline-block;
+                                               margin-left: 20px;
+                                               margin-right: 20px;"},
 
-                              #listitem{body=[#button{postback=facebook, text="Facebook"}],style="display: inline-block;
-                                                                                                  margin-left: 20px;
-                                                                                                  margin-right: 20px;"}]}        
+                              #listitem{body=[#link{text="", image="images/facebook.png", url="https://www.facebook.com"}],
+                                        style="display: inline-block;
+                                               margin-left: 20px;
+                                               margin-right: 20px;"}]}        
     ].
 
 %pages
@@ -58,15 +61,7 @@ event(about_me) ->
     wf:redirect("/aboutme");
 event(nature) ->
     wf:redirect("/nature");
-event(portraite) ->
+event(portrait) ->
     wf:redirect("/portraite");
 event(reportage) ->
-    wf:redirect("/reportage");
-
-%socials
-event(vk) ->
-    wf:redirect("https://vk.com");
-event(instagram) ->
-    wf:redirect("https://www.instagram.com");
-event(facebook) ->
-    wf:redirect("https://www.facebook.com").
+    wf:redirect("/reportage").

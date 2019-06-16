@@ -5,7 +5,9 @@
 * {
 	padding: 0px;
 	margin: 0px;
-	font-family: 'Ubuntu', Tahoma;
+	font-family: Gilroy Light;
+    color: black;
+    font-size: 150%;
 	line-height: 100%;
 	outline: none;
 }
@@ -30,11 +32,11 @@ body {
 a {
 	text-decoration: none;
 	cursor: pointer;
-	color: #d0d9de;
+	color: black;
 }
 
 a:hover {
-	color: #FFF;
+	color: #blue;
 }
 
 #cont {
