@@ -1,11 +1,11 @@
 %% -*- mode: nitrogen -*-
--module (nature).
+-module (portrait).
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
 main() -> #template { file="./site/templates/ordinary_page.html" }.
 
-title() -> "Nature".
+title() -> "Portraites".
 
 header() ->
     [
@@ -54,7 +54,7 @@ header() ->
 
 body() ->
     [
-      #h1{text="Hi, these are photo of nature"},
+      #h1{text="Portraites"},
       #p{text="Waiting for Varya's model"}
     ].
 
@@ -70,7 +70,6 @@ footer() ->
                                                margin-left: 20px;
                                                margin-right: 20px;"}]}        
     ].
-
 
 event(home) ->
     wf:redirect("/");

@@ -25,9 +25,7 @@ time, mark, audio, video{
 }
 
 li .listitem a{
-    font-family:Gilroy Light;
-    color: blue;
-    font-size: 150%
+    color: black;
 }
 
 body {

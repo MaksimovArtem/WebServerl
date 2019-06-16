@@ -10,25 +10,47 @@ title() -> "Welcome to this WebSite".
 
 header() ->
     [
-            #singlerow{cells=[#listitem{body=[#link{postback=home, text=" Home ", image="images/home.png"}],style="display: inline-block;
-                                                                                          margin-left: 20px;
-                                                                                          margin-right: 20px"},
+            #singlerow{cells=[#listitem{body=[#link{postback=home, text=" HOME "}],style="display: inline-block;
+                                                                                          margin-right: 10px"},
 
-                              #listitem{body=[#link{postback=about_me, text=" About Me ", image="images/aboutme.png"}],style="display: inline-block;
-                                                                                                  margin-left: 20px;
-                                                                                                  margin-right: 20px;"},
+                              #listitem{body=[#p{text="•"}],style="display: inline-block;
+                                                                   margin-left: 10px;
+                                                                   margin-right: 10px"},
 
-                              #listitem{body=[#link{postback=nature, text=" Nature ", image="images/nature.png"}],style="display: inline-block;
-                                                                                              margin-left: 20px;
-                                                                                              margin-right: 20px;"},
+                              #listitem{body=[#link{postback=portrait, text=" PORTRAIT "}],style="display: inline-block;
+                                                                                                  margin-left: 10px;
+                                                                                                  margin-right: 10px;"},
 
-                              #listitem{body=[#link{postback=portrait, text=" Portrait ", image="images/portrait.png"}],style="display: inline-block;
-                                                                                                    margin-left: 20px;
-                                                                                                    margin-right: 20px;"},
+                              #listitem{body=[#p{text="•"}],style="display: inline-block;
+                                                                   margin-left: 10px;
+                                                                   margin-right: 10px"},
 
-                              #listitem{body=[#link{postback=reportage, text=" Reportage ", image="images/reportage.png"}],style="display: inline-block;
-                                                                                                    margin-left: 20px;
-                                                                                                    margin-right: 20px;"}]}
+                              #listitem{body=[#link{postback=nature, text=" NATURE "}],style="display: inline-block;
+                                                                                              margin-left: 10px;
+                                                                                              margin-right: 10px;"},
+
+                              #listitem{body=[#p{text="•"}],style="display: inline-block;
+                                                                   margin-left: 10px;
+                                                                   margin-right: 10px"},
+
+                              #listitem{body=[#link{postback=reportage, text=" REPORTAGE "}],style="display: inline-block;
+                                                                                                    margin-left: 10px;
+                                                                                                    margin-right: 10px;"}]},
+
+                              #listitem{body=[#p{text="•"}],style="display: inline-block;
+                                                                   margin-left: 10px;
+                                                                   margin-right: 10px"},
+
+                              #listitem{body=[#link{postback=about_me, text=" CONTACT "}],style="display: inline-block;
+                                                                                                 margin-left: 10px;
+                                                                                                 margin-right: 10px;"},
+
+                              #listitem{body=[#p{text="•"}],style="display: inline-block;
+                                                                   margin-left: 10px;
+                                                                   margin-right: 10px"},                                                                                                  
+
+                              #listitem{body=[#link{postback=about_me, text=" GUESTBOOK "}],style="display: inline-block;
+                                                                                                   margin-left: 10px;"}
     ].
 
 body() ->
@@ -46,11 +68,6 @@ footer() ->
                               #listitem{body=[#link{text="", image="images/instagram.png", url="https://www.instagram.com"}],
                                         style="display: inline-block;
                                                margin-left: 20px;
-                                               margin-right: 20px;"},
-
-                              #listitem{body=[#link{text="", image="images/facebook.png", url="https://www.facebook.com"}],
-                                        style="display: inline-block;
-                                               margin-left: 20px;
                                                margin-right: 20px;"}]}        
     ].
 
@@ -58,10 +75,10 @@ footer() ->
 event(home) ->
     wf:redirect("/");
 event(about_me) ->
-    wf:redirect("/aboutme");
+    wf:redirect("/contact");
 event(nature) ->
     wf:redirect("/nature");
 event(portrait) ->
-    wf:redirect("/portraite");
+    wf:redirect("/portrait");
 event(reportage) ->
     wf:redirect("/reportage").

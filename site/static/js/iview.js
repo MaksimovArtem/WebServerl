@@ -86,6 +86,7 @@
 			iv.sliderContent.append('<div id="iview-timer"><div></div></div>');
 			iv.iviewTimer = $('#iview-timer', iv.sliderContent);
 			iv.iviewTimer.hide();
+			iv.iviewTimer.css('display', 'none');
 
 			//Find captions
 			$('.iview-caption', iv.slider).each(function (i) {

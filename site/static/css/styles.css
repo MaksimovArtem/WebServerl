@@ -5,9 +5,9 @@
 * {
 	padding: 0px;
 	margin: 0px;
-	font-family: Gilroy Light;
+	font-family: DeVinne Txt BT;
     color: black;
-    font-size: 150%;
+    font-size: 100%;
 	line-height: 100%;
 	outline: none;
 }
@@ -36,7 +36,7 @@ a {
 }
 
 a:hover {
-	color: #blue;
+	color: #cccccc;
 }
 
 #cont {
