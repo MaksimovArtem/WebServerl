@@ -43,7 +43,8 @@ init(_Args) ->
 %%---------------------------------------
 handle_call({add_comment, Name, Message}, _From, Tab) ->
 	Id = length(mnesia:dirty_all_keys(Tab)) + 1,
-	Row = #comment{id = Id, name = Name, message = Message},
+	{Y, M, D} = erlang:date(),
+	Row = #comment{id = Id, name = Name, message = Message, time = string:join([integer_to_list(D),integer_to_list(M),integer_to_list(Y)], ".")},
 	Reply = 
 	case get_comment(Row#comment.id, Tab) of
 		{atomic,[]} ->
@@ -61,14 +62,13 @@ handle_call({remove,Key}, _From, Tab) ->
 	{reply, ok, Tab};
 
 handle_call(dump_comments,_From, Tab) ->
-	F = fun() -> mnesia:match_object({comment,'_','_','_'}) end,
+	F = fun() -> mnesia:match_object({comment,'_','_','_','_'}) end,
 	R = regular_transaction(F),
 	Reply = 
 	case R of
 		none -> [];
 		_ -> R
 	end, 
-
 	{reply, Reply,Tab};
 
 handle_call(stop,_From,_List) ->

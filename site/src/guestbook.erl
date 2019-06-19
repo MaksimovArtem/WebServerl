@@ -78,7 +78,7 @@ body() ->
       undefined ->
         [
           #br{},
-          #h1{text = Comment#comment.name},
+          #h1{text = Comment#comment.name ++ " " ++ Comment#comment.time},
           #br{},
           #br{},
           #p{text = Comment#comment.message},
@@ -87,8 +87,8 @@ body() ->
       _Username ->
         [
         #br{},
-        #singlerow{cells=[#listitem{body = [#h1{text = Comment#comment.name}], style="display: inline-block;
-                                                                                     margin-right: 10px"},
+        #singlerow{cells=[#listitem{body = [#h1{text = Comment#comment.name ++ " " ++ Comment#comment.time}], style="display: inline-block;
+                                                                                                                      margin-right: 10px"},
                           #listitem{body = [#button{text = "Delete Comment", postback = {delete, Comment#comment.id}}], style="display: inline-block;"} ]},
         #br{},
         #br{},

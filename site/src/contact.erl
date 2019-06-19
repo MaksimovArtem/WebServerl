@@ -3,6 +3,8 @@
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
+-include("visitors.hrl").
+
 main() -> #template { file = "./site/templates/me.html" }.
 
 title() -> "My info".
@@ -64,38 +66,69 @@ header() ->
 		].
 
 body() ->
-		wf:defer(message, name, #validate{validators=[
-			#is_required{text="Name Required"}]}),
-		wf:defer(message, mail, #validate{validators=[
-			#is_email{text="E-mail Address Required"},
-			#is_required{text="E-mail Address Required"}]}),
-		wf:defer(message, message, #validate{validators=[
-			#is_required{text="Message Required"}]}),
-		[
-			#br{},
-			#h4{text = "Здравствуйте, меня зовут Елькина Варвара, я начинающий фотограф."}, 
-			#h4{text = "Люблю фотографировать природу и людей. Также занимаюсь репортажной съемкой. "},
-			#br{},
-			#br{},
-			#h4{text="Россия. г. Нижний Новгород"},
-			#br{},
-			#h4{text = "Пожалуйста используйте форму ниже, чтобы связаться со мной"},
-			#br{},
-			#br{},
-			#textbox{id=name, size=100, placeholder="Name"},
-			#br{},
-			#br{},
-			#textbox{id=mail, size=100, placeholder="E-mail"},
-			#br{},
-			#br{},
-			#textarea{id=message, trap_tabs=true, columns=101, rows=10, placeholder="Your message"},
-			#br{},
-			#br{},
+	case wf:user() of
+		undefined ->
+			wf:defer(message, name, #validate{validators=[
+				#is_required{text="Name Required"}]}),
+			wf:defer(message, mail, #validate{validators=[
+				#is_email{text="E-mail Address Required"},
+				#is_required{text="E-mail Address Required"}]}),
+			wf:defer(message, message, #validate{validators=[
+				#is_required{text="Message Required"}]}),
+			[
+				#br{},
+				#h4{text = "Здравствуйте, меня зовут Елькина Варвара, я начинающий фотограф."}, 
+				#h4{text = "Люблю фотографировать природу и людей. Также занимаюсь репортажной съемкой. "},
+				#br{},
+				#br{},
+				#h4{text="Россия. г. Нижний Новгород"},
+				#br{},
+				#h4{text = "Пожалуйста используйте форму ниже, чтобы связаться со мной"},
+				#br{},
+				#br{},
+				#textbox{id=name, size=100, placeholder="Name"},
+				#br{},
+				#br{},
+				#textbox{id=mail, size=100, placeholder="E-mail"},
+				#br{},
+				#br{},
+				#textarea{id=message, trap_tabs=true, columns=101, rows=10, placeholder="Your message"},
+				#br{},
+				#br{},
 
-			#link{id = message, postback = save, image="images/sendmessage10x2_2.jpg", style="position: relative;
-											                                    display: flex;
-											                                    left: 260px;"}
-		].
+				#link{id = message, postback = save, image="images/sendmessage10x2_2.jpg", style="position: relative;
+																                                  display: flex;
+																                                  left: 310px;"}
+			];
+		_Username ->
+			Pretty = fun(Message) ->
+		        [
+		        #br{},
+		        #h1{text = Message#message.name ++ " " ++ Message#message.time},
+		        #br{},
+		        #br{},
+		        #h1{text = Message#message.mail},
+		        #br{},
+		        #br{},
+		        #p{text = Message#message.message},
+		        #br{}
+		        ]
+		    end,
+		    Mess = db_message:dump_messages(),
+		    View =
+		    case length(Mess) of
+		    	0 -> [];
+		    	1 ->
+			      lists:map(Pretty, Mess);
+			    _Number ->
+			      F = fun(M1,M2) ->
+			        M1#message.id =< M2#message.id
+			      end,
+			      Messages = lists:sort(F,Mess),
+			      lists:map(Pretty, Messages)
+			end,
+			View
+	end.
 
 footer() ->
 		[
