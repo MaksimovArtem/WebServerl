@@ -54,6 +54,17 @@ header() ->
                                                                                                    margin-left: 10px;"}
     ].
 
+admin_place() ->
+  case wf:user() of
+    "admin" ->
+      [
+      #p{text = "You are admin"},
+      #button{text="Log out", postback=logout}
+      ];
+    _ ->
+      []
+  end.
+  
 
 body() ->
 
@@ -62,29 +73,50 @@ body() ->
   wf:defer(comment, message, #validate{validators=[
     #is_required{text="Message Required"}]}),
 
+  Pretty = fun(Comment) ->
+    case wf:user() of
+      undefined ->
+        [
+          #br{},
+          #h1{text = Comment#comment.name},
+          #br{},
+          #br{},
+          #p{text = Comment#comment.message},
+          #br{}
+        ];
+      _Username ->
+        [
+        #br{},
+        #singlerow{cells=[#listitem{body = [#h1{text = Comment#comment.name}], style="display: inline-block;
+                                                                                     margin-right: 10px"},
+                          #listitem{body = [#button{text = "Delete Comment", postback = {delete, Comment#comment.id}}], style="display: inline-block;"} ]},
+        #br{},
+        #br{},
+        #p{text = Comment#comment.message},
+        #br{}
+        ]
+    end
+  end,
 
   Comm = db_comment:dump_comments(),
 
-  F = fun(C1,C2) ->
-    C1#comment.id =< C2#comment.id
+  View =
+  case length(Comm) of
+    0 -> [];
+    1 ->
+      lists:map(Pretty, Comm);
+    _Number ->
+      F = fun(C1,C2) ->
+        C1#comment.id =< C2#comment.id
+      end,
+      Comments = lists:sort(F,Comm),
+      lists:map(Pretty, Comments)
   end,
 
-  Comments = lists:sort(F,Comm),
-
-  Pretty = fun(Comment) ->
-    [
-    #br{},
-    #h1{text = Comment#comment.name},
-    #br{},
-    #span{text = Comment#comment.message},
-    #br{}
-    ]
-  end,
-  View = lists:map(Pretty, Comments),
   View ++
   [
     #br{},
-    #textbox{id=name, next=message, size=100, placeholder="Name"},
+    #textbox{id=name, next=message, size=100, placeholder="Name", maxlength = 20},
     #br{},
     #br{},
     #textarea{id=message, trap_tabs=true, columns=101, rows=10, placeholder="Your comment"},
@@ -92,7 +124,7 @@ body() ->
     #br{},
     #link{id=comment, postback=save, image="images/sendcomment10x2_2.jpg", style="position: relative;
                                                                                   display: flex;
-                                                                                  left: 260px;"}
+                                                                                  left: 310px;"}
   ].
 
 footer() ->
@@ -125,4 +157,12 @@ event(save) ->
   Name = wf:q(name),
   Message = wf:q(message),
   db_comment:add_comment(Name, Message),
-  wf:redirect("/guestbook").
+  wf:redirect("/guestbook");
+
+event({delete,Id}) ->
+  db_comment:remove(Id),
+  wf:redirect("/guestbook");
+
+event(logout) ->
+  wf:logout(),
+  wf:redirect("/").

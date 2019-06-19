@@ -7,6 +7,18 @@ main() -> #template { file="./site/templates/nature.html" }.
 
 title() -> "Nature".
 
+admin_place() ->
+  case wf:user() of
+    "admin" ->
+      [
+      #p{text = "You are admin"},
+      #button{text="Log out", postback=logout}
+      ];
+    _ ->
+      []
+  end.
+  
+
 header() ->
     [
             #singlerow{cells=[#listitem{body=[#link{postback=home, text=" HOME "}],style="display: inline-block;
@@ -83,4 +95,8 @@ event(portrait) ->
 event(reportage) ->
     wf:redirect("/reportage");
 event(guestbook) ->
-    wf:redirect("/guestbook").
+    wf:redirect("/guestbook");
+
+event(logout) ->
+  wf:logout(),
+  wf:redirect("/").

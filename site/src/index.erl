@@ -7,6 +7,16 @@ main() -> #template { file="./site/templates/home.html" }.
 
 title() -> "Welcome to this WebSite".
 
+admin_place() ->
+  case wf:user() of
+    "admin" ->
+      [
+      #p{text = "You are admin"},
+      #button{text="Log out", postback=logout}
+      ];
+    _ ->
+      []
+  end.
 
 header() ->
     [
@@ -56,6 +66,7 @@ header() ->
 body() ->
     visitors_db:start(),
     db_login:start(),
+    db_login:create_account("admin", "admin"),
     db_message:start(),
     db_comment:start(),
     [].
@@ -85,4 +96,8 @@ event(portrait) ->
 event(reportage) ->
     wf:redirect("/reportage");
 event(guestbook) ->
-    wf:redirect("/guestbook").
+    wf:redirect("/guestbook");
+
+event(logout) ->
+  wf:logout(),
+  wf:redirect("/").

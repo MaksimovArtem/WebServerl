@@ -7,6 +7,17 @@ main() -> #template { file = "./site/templates/me.html" }.
 
 title() -> "My info".
 
+admin_place() ->
+  case wf:user() of
+    "admin" ->
+      [
+      #p{text = "You are admin"},
+      #button{text="Log out", postback=logout}
+      ];
+    _ ->
+      []
+  end.
+  
 header() ->
 		[
 						#singlerow{cells=[#listitem{body=[#link{postback=home, text=" HOME "}],style="display: inline-block;
@@ -114,4 +125,9 @@ event(guestbook) ->
 	
 event(save) ->
 	[Name, Mail, Message] = wf:mq([name, mail, message]),
-	db_message:add_message(Name, Mail, Message).
+	db_message:add_message(Name, Mail, Message),
+    wf:redirect("/");
+
+event(logout) ->
+  wf:logout(),
+  wf:redirect("/").

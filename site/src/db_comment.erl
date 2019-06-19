@@ -62,7 +62,13 @@ handle_call({remove,Key}, _From, Tab) ->
 
 handle_call(dump_comments,_From, Tab) ->
 	F = fun() -> mnesia:match_object({comment,'_','_','_'}) end,
-	Reply = regular_transaction(F),
+	R = regular_transaction(F),
+	Reply = 
+	case R of
+		none -> [];
+		_ -> R
+	end, 
+
 	{reply, Reply,Tab};
 
 handle_call(stop,_From,_List) ->
