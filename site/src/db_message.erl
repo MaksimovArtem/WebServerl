@@ -1,4 +1,4 @@
--module(db_login).
+-module(db_message).
 
 -behaviour(gen_server).
 
@@ -11,43 +11,35 @@
 -export([start/0, stop/0]).
 
 %change db
--export([create_account/2,remove/1]).
+-export([add_message/3,remove/1]).
 
--export([attempt_login/2]).
-
--export([get_account/2]).
-
--define(DB_LOGIN, db_login).
+-define(DB_MESSAGE, db_message).
 
 %% @doc start server with mnesia database
 start() ->
-	gen_server:start_link({local, ?DB_LOGIN},?MODULE,[],[]).
+	gen_server:start_link({local, ?DB_MESSAGE},?MODULE,[],[]).
 %% @doc stop server with mnesia database
 stop() ->
-	gen_server:call(?DB_LOGIN, stop).
-%% @doc insert account in database
-create_account(Username, Password) ->
-	gen_server:call(?DB_LOGIN, {create_account, Username, Password}).
-%% @doc remove account from database
-remove(Name) ->
-	gen_server:call(?DB_LOGIN, {remove, Name}).
-
-attempt_login(Username, Password) ->
-	gen_server:call(?DB_LOGIN, {attempt_login, Username, Password}).
+	gen_server:call(?DB_MESSAGE, stop).
+%% @doc insert message in database
+add_message(Name, Email, Message) ->
+	gen_server:call(?DB_MESSAGE, {add_message, Name, Email, Message}).
+%% @doc remove message from database
+remove(Email) ->
+	gen_server:call(?DB_MESSAGE, {remove, Email}).
 
 init(_Args) ->
 	mnesia:start(),
-	mnesia:create_table(login, [{attributes, record_info(fields, login)}]),
-	{ok,login}.
+	mnesia:create_table(message, [{attributes, record_info(fields, message)}]),
+	{ok, message}.
 
 %%---------------------------------------
 %%callbacks
 %%---------------------------------------
-handle_call({create_account, Username, Password}, _From, Tab) ->
-	PWHash = crypto:hash(sha, term_to_binary(Password)),
-	Row = #login{username = Username, password = PWHash},
+handle_call({add_message, Name, Email, Message}, _From, Tab) ->
+	Row = #message{mail = Email, name = Name, message = Message},
 	Reply = 
-	case get_account(Row#login.username,Tab) of
+	case get_message(Row#message.mail, Tab) of
 		{atomic,[]} ->
 			F = fun() -> mnesia:write(Tab, Row, write) end,
 			mnesia:transaction(F),
@@ -61,16 +53,6 @@ handle_call({remove,Key}, _From, Tab) ->
 	F = fun() -> mnesia:delete(ObjectID) end,
 	mnesia:transaction(F),
 	{reply, ok, Tab};
-
-handle_call({attempt_login, Username, Password}, _From, Tab) ->
-	Row = #login{username = Username, password = Password},
-	Result = 
-	case get_account(Row#login.username,Tab) of
-		{atomic,[{Tab, Username, PWHash}]} ->
-			PWHash == crypto:hash(sha, term_to_binary(Password));
-		{atomic,[]} -> false
-	end,
-	{reply, Result, Tab};
 
 handle_call(stop,_From,_List) ->
 	mnesia:stop(),
@@ -92,6 +74,6 @@ code_change(_OldVsn, State, _Extra) ->
 %%internal functions
 %% TODO: move to another file!
 %%---------------------------------------
-get_account(Key, Tab) ->
+get_message(Key, Tab) ->
 	F = fun() -> mnesia:read(Tab, Key, write) end,
 	mnesia:transaction(F).

@@ -5,15 +5,14 @@
 
 /* The timer in the Slider */
 #iview-timer {
-	display: none;
-	z-index: -1;
+	position: absolute;
+	z-index: 0;
 	border-radius: 5px;
 	cursor: pointer;
 }
 
 #iview-timer div {
 	border-radius: 3px;
-	display: none;
 }
 
 /* The Preloader in the Slider */

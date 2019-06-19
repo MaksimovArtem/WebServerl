@@ -3,7 +3,7 @@
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
-main() -> #template { file="./site/templates/bare.html" }.
+main() -> #template { file="./site/templates/home.html" }.
 
 title() -> "Welcome to this WebSite".
 
@@ -56,6 +56,7 @@ header() ->
 body() ->
     visitors_db:start(),
     db_login:start(),
+    db_message:start(),
     [].
 
 footer() ->
