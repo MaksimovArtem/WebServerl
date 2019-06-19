@@ -1,11 +1,13 @@
 %% -*- mode: nitrogen -*-
--module (nature).
+-module (guestbook).
 -compile(export_all).
 -include_lib("nitrogen_core/include/wf.hrl").
 
-main() -> #template { file="./site/templates/nature.html" }.
+-include("visitors.hrl").
 
-title() -> "Nature".
+main() -> #template { file="./site/templates/ordinary_page.html" }.
+
+title() -> "Guestbook".
 
 header() ->
     [
@@ -49,14 +51,49 @@ header() ->
                                                                    margin-right: 10px"},                                                                                                  
 
                               #listitem{body=[#link{postback=guestbook, text=" GUESTBOOK "}],style="display: inline-block;
-                                                                                                    margin-left: 10px;"}
+                                                                                                   margin-left: 10px;"}
     ].
 
+
 body() ->
+
+  wf:defer(comment, name, #validate{validators=[
+    #is_required{text="Name Required"}]}),
+  wf:defer(comment, message, #validate{validators=[
+    #is_required{text="Message Required"}]}),
+
+
+  Comm = db_comment:dump_comments(),
+
+  F = fun(C1,C2) ->
+    C1#comment.id =< C2#comment.id
+  end,
+
+  Comments = lists:sort(F,Comm),
+
+  Pretty = fun(Comment) ->
     [
-      #h1{text="Hi, these are photo of nature"},
-      #p{text="Waiting for Varya's model"}
-    ].
+    #br{},
+    #h1{text = Comment#comment.name},
+    #br{},
+    #span{text = Comment#comment.message},
+    #br{}
+    ]
+  end,
+  View = lists:map(Pretty, Comments),
+  View ++
+  [
+    #br{},
+    #textbox{id=name, next=message, size=100, placeholder="Name"},
+    #br{},
+    #br{},
+    #textarea{id=message, trap_tabs=true, columns=101, rows=10, placeholder="Your comment"},
+    #br{},
+    #br{},
+    #link{id=comment, postback=save, image="images/sendcomment10x2_2.jpg", style="position: relative;
+                                                                                  display: flex;
+                                                                                  left: 260px;"}
+  ].
 
 footer() ->
     [
@@ -71,7 +108,6 @@ footer() ->
                                                margin-right: 20px;"}]}        
     ].
 
-
 event(home) ->
     wf:redirect("/");
 event(about_me) ->
@@ -83,4 +119,10 @@ event(portrait) ->
 event(reportage) ->
     wf:redirect("/reportage");
 event(guestbook) ->
-    wf:redirect("/guestbook").
+    wf:redirect("/guestbook");
+
+event(save) ->
+  Name = wf:q(name),
+  Message = wf:q(message),
+  db_comment:add_comment(Name, Message),
+  wf:redirect("/guestbook").

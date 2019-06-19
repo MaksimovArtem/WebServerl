@@ -48,12 +48,18 @@ header() ->
 																																	 margin-left: 10px;
 																																	 margin-right: 10px"},                                                                                                  
 
-															#listitem{body=[#link{postback=about_me, text=" GUESTBOOK "}],style="display: inline-block;
+															#listitem{body=[#link{postback=guestbook, text=" GUESTBOOK "}],style="display: inline-block;
 																																																	 margin-left: 10px;"}
 		].
 
 body() ->
-
+		wf:defer(message, name, #validate{validators=[
+			#is_required{text="Name Required"}]}),
+		wf:defer(message, mail, #validate{validators=[
+			#is_email{text="E-mail Address Required"},
+			#is_required{text="E-mail Address Required"}]}),
+		wf:defer(message, message, #validate{validators=[
+			#is_required{text="Message Required"}]}),
 		[
 			#br{},
 			#h4{text = "Здравствуйте, меня зовут Елькина Варвара, я начинающий фотограф."}, 
@@ -65,19 +71,19 @@ body() ->
 			#h4{text = "Пожалуйста используйте форму ниже, чтобы связаться со мной"},
 			#br{},
 			#br{},
-			#textbox{id=name, next=mail, size=100, placeholder="Name"},
+			#textbox{id=name, size=100, placeholder="Name"},
 			#br{},
 			#br{},
-			#textbox{id=mail, next=message, size=100, placeholder="E-mail"},
+			#textbox{id=mail, size=100, placeholder="E-mail"},
 			#br{},
 			#br{},
 			#textarea{id=message, trap_tabs=true, columns=101, rows=10, placeholder="Your message"},
 			#br{},
 			#br{},
 
-			#link{postback = save, image="images/sendmessage10x2_2.jpg", style="position: relative;
-                                     display: flex;
-                                     left: 260px;"}
+			#link{id = message, postback = save, image="images/sendmessage10x2_2.jpg", style="position: relative;
+											                                    display: flex;
+											                                    left: 260px;"}
 		].
 
 footer() ->
@@ -103,9 +109,9 @@ event(portrait) ->
 		wf:redirect("/portrait");
 event(reportage) ->
 		wf:redirect("/reportage");
-
+event(guestbook) ->
+	wf:redirect("/guestbook");
+	
 event(save) ->
-		Name = wf:q(name),
-		Mail = wf:q(mail),
-		Message = wf:q(message),
-		db_message:add_message(Name, Mail, Message).
+	[Name, Mail, Message] = wf:mq([name, mail, message]),
+	db_message:add_message(Name, Mail, Message).

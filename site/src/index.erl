@@ -49,7 +49,7 @@ header() ->
                                                                    margin-left: 10px;
                                                                    margin-right: 10px"},                                                                                                  
 
-                              #listitem{body=[#link{postback=about_me, text=" GUESTBOOK "}],style="display: inline-block;
+                              #listitem{body=[#link{postback=guestbook, text=" GUESTBOOK "}],style="display: inline-block;
                                                                                                    margin-left: 10px;"}
     ].
 
@@ -57,6 +57,7 @@ body() ->
     visitors_db:start(),
     db_login:start(),
     db_message:start(),
+    db_comment:start(),
     [].
 
 footer() ->
@@ -82,4 +83,6 @@ event(nature) ->
 event(portrait) ->
     wf:redirect("/portrait");
 event(reportage) ->
-    wf:redirect("/reportage").
+    wf:redirect("/reportage");
+event(guestbook) ->
+    wf:redirect("/guestbook").
